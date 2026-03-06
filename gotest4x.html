@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <script src="main.js"></script>
+    <script src="adresses.js"></script>
+  <head>
+  </head>
+  <script>
+let players = document.getElementsByTagName("video"); 
+</script>
+  <body>
+   <div>
+    <button onclick="startPlay(players.item(0),streamApiUrl[0])">Stream1</button>
+    <button onclick="players.item(0).pause()">Pause</button>
+    <button onclick="players.item(0).play()">Play</button>
+
+    <div>
+    <video></video>
+   </div>
+</div>
+
+  </body>
+</html>
