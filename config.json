@@ -1,5 +1,5 @@
 {
-  "variablesloc" : "",
+  "variablesloc" : "adresses.js",
   "server": {
     "http_port": ":8083",
     "log_level": "debug",
@@ -23,4 +23,5 @@
         "insecure_skip_verify": false
        }
     } 
+
 }
