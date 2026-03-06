@@ -1,0 +1,26 @@
+{
+  "variablesloc" : "",
+  "server": {
+    "http_port": ":8083",
+    "log_level": "debug",
+    "webrtc_port_max": 10,
+    "webrtc_port_min": 10000
+  },
+  "channels": {
+      "Axisnew": {
+        "debug": false,
+        "url": "rtsp://172.20.10.21/axis-media/media.amp?camera=1",
+        "insecure_skip_verify": false
+       },
+      "AxisOld": {
+        "debug": false,
+        "url": "rtsp://172.20.10.20:554/axis-media/media.amp?stream=1",
+        "insecure_skip_verify": false
+       },
+        "Sick": {
+        "debug": false,
+        "url": "rtsp://192.168.136.100:554/live/0",
+        "insecure_skip_verify": false
+       }
+    } 
+}
