@@ -1,29 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
-//  console.log(players.length);
-  /*console.log("here");
-  for(var i=0;i<PlayerAmount;i++){
-   outputs.push(document.getElementById("out"+i));
-   console.log(outputs[i]);
-  }
-  //alle 1000 Milisekunden wird getTime ausgeführt
- if(typeof startTimes != 'undefined'){
-  window.setInterval("getTime()", 1000);
- }*/
+  
 })
  
 //Funktion zur Latenzermittlung
 /*function getTime(){
 for (var i=0;i<PlayerAmount;i++){
+//Zeitpunkt des Videostreams
  var currentTime = players[i].currentTime;
+//Abspieldauer bis jetzt 
  var playTime = (Date.now()-startTimes[i])/1000; //1000 ms = 1 s
+//Latenz in Sekunden
  var delay = playTime - currentTime;
+//Loggen von Latenz, bis jetzt maximal 0,8-0,9 s bei 4 Videos unter Auslastung
  var txt = delay.toFixed(3);
  outputs[i].innerHTML = txt;
 }
-//Zeitpunkt des Videostreams
-//Abspieldauer bis jetzt 
-//Latenz in Sekunden
-//Loggen von Latenz, bis jetzt maximal 0,8-0,9 s bei 4 Videos unter Auslastung
+
 }*/
 
 
@@ -36,7 +28,6 @@ for (var i=0;i<PlayerAmount;i++){
 }*/
 //Funktion für RTC Verbindung zum Server und abspielen des gewünschten Streams
 //Parameter sind HTML-Video Element und die Url des gewünschten Streams (API-Definition)
-
 function startPlay (videoEl, url, i) {
     //Neue Verbindung definieren
     const webrtc = new RTCPeerConnection({
@@ -47,10 +38,8 @@ function startPlay (videoEl, url, i) {
     webrtc.ontrack = function (event) {
       console.log(event.streams.length + ' track is delivered')
       videoEl.srcObject = event.streams[0]
-      videoEl.play();
-
+      videoEl.play()
     }
-
     //WebRTC beidseitige Kommunikation
     //Transceiver ist transmitter und reciever, sendrecv = send and recieve, d.h. Transceiver kommuniziert in beide Richtungen
     webrtc.addTransceiver('video', { direction: 'sendrecv' })
@@ -66,23 +55,22 @@ function startPlay (videoEl, url, i) {
     //
 
       fetch(url, {
-
         method: 'POST',
         body: new URLSearchParams({ data: btoa(webrtc.localDescription.sdp) })
       })
+
         .then(response => response.text())
         .then(data => {
           //Lokale Beschreibung für Server setzen, Promise als return
             const TestPromise = webrtc.setRemoteDescription( 
               new RTCSessionDescription({ type: 'answer', sdp: atob(data) })
+
             )
             //Bei Fehlermeldung (Stream Offline) => Poster setzen, hier Schriftzug mit Kamera offline, beliebig ersetzen
             TestPromise.catch(err => videoEl.setAttribute('poster', 'Static.png')); 
         })
     
     }
-      
-
     //neuen Datenchannel für Lognachrichten
     const webrtcSendChannel = webrtc.createDataChannel('rtsptowebSendChannel')
     //loggen, wenn Verbindung sich öffnet
@@ -91,7 +79,7 @@ function startPlay (videoEl, url, i) {
       webrtcSendChannel.send('ping')
     //Startzeit der offenen Verbindung, um Latenz zwischen Server und Client zu ermitteln (Videolatenz)
       
-        //startTimes[i] = Date.now();
+        //startTimes[i] = Date.now(); 
       
     }
     //loggen, wenn Verbindung sich schließt, Aufruf von startPlay, um Verbindung automatisch neuzustarten

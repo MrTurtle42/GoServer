@@ -2,20 +2,23 @@
 <html lang="en">
 
     <script src="main.js"></script>
-    <script src="adresses.js"></script>
+    <script src="RtspToGoServer\adresses.js"></script>
   <head>
   </head>
   <script>
 let players = document.getElementsByTagName("video"); 
+let playbackRate = 0.5; //prozentuale Geschwindigkeit 0,5 = 50% Videogeschwindigkeit
+let segmentLength = 10; //Länge eines Abschnittes, der in Slowmotion gespielt wird, mit dem Ende wird zum jetzigen Zeitpunkt gesprpungen und nächster Slowmotion Abschnitt beginnt
+let seturl = streamApiUrl[1] + "?playbackRate="+playbackRate+"&segmentLength="+segmentLength; //URL mit Parametern für die Wiedergabegeschwindigkeit und die Länge der Abschnitte 
 </script>
   <body>
    <div>
-    <button onclick="startPlay(players.item(0),streamApiUrl[0])">Stream1</button>
-    <button onclick="players.item(0).pause()">Pause</button>
-    <button onclick="players.item(0).play()">Play</button>
+    <button onclick="startPlay(players.item(0),streamApiUrl[1])">Stream1</button>
+    <button onclick="startPlay(players.item(0),seturl)">Slow Motion</button>
+    <button onclick="startPlay(players.item(0),streamApiUrl[1])">Normal</button>
 
     <div>
-    <video></video>
+    <video controls></video>
    </div>
 </div>
 
